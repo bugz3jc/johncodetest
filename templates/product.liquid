@@ -9,7 +9,18 @@
 <h1>{{ product.title }}</h1>
 <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
   <select name="id" id="productSelect">
+
+    {% assign nostock = '' %}
+    {% assign buttonText = 'Add to Cart' %}
+
     {% for variant in product.variants %}
+      {% assign stock = variant.inventory_quantity %}
+      {% if stock < 1 %}
+        {% assign nostock = 'no-stock' %}
+      {% elsif stock < 5 %}
+        {% assign buttonText = 'Low Stock' %}
+      {% endif %}
+
       {% if variant.available %}
         <option value="{{ variant.id }}">
           {{ variant.title }} - {{ variant.price | money_with_currency }}
@@ -24,6 +35,8 @@
   {{ current_variant.price | money }}
   <label for="Quantity">quantity</label>
   <input type="number" id="Quantity" name="quantity" value="1" min="1">
-  <button type="submit" name="add" id="AddToCart">Add to cart</button>
+  <button type="submit" name="add" id="AddToCart" class="{{ nostock }}">
+    {{buttonText}}
+  </button>
 </form>
-<div>{{ product.description }}</div>
+<div>{{ product.description }}</div> 
