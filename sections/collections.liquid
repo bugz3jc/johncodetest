@@ -1,0 +1,36 @@
+{% assign products =  collections[section.settings.co].products | sort: 'title' %}
+<h3>{{collections[section.settings.co].title}}</h3>
+{% for product in products %}
+<div>
+  <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
+  {{ product.price | money }}
+  {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+  <a href="{{ product.url | within: collection }}">
+    <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+  </a>
+</div>
+{% else %}
+<p>no matches</p>
+{% endfor%}
+{% schema %} 
+{
+  "name": "Select Collection", 
+  "settings": [
+    {
+      "type": "collection",
+      "id": "co",
+      "label": "Select Collection"
+    }
+  ],
+  "presets": [{
+    "name": "Collections",
+    "category": "Text"
+  }]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %} 
+{% endjavascript %}

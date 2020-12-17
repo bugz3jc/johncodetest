@@ -13,6 +13,8 @@
 </head>
 <body>
 
+  <h3>{{ settings.random_title }}</h3>
+
   {% for link in linklists.main-menu.links %}
     {% assign child_list_handle = link.title | handleize %}
     {% if linklists[child_list_handle].links != blank %}
@@ -44,5 +46,8 @@
   {{ '//code.jquery.com/jquery-3.4.1.min.js' | script_tag }}
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   {{ 'application.js' | asset_url | script_tag }}
+  <script>
+    console.log('{{settings.random_title}}');
+  </script>
 </body>
 </html>
