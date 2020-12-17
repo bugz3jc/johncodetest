@@ -29,4 +29,8 @@ $(document).ready(function(){
             }
         });
     });
+
+
+    //show modal
+    $('#product-popup').modal('show');
 });
